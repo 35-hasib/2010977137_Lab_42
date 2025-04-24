@@ -6,12 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Form</title>
 
-    <style> 
+    <style>
+        table {
+            border-collapse: collapse;
+            
+        }
+
         .input-field {
             width: 100%;
         }
-        .input-field > input {
+
+        .input-field>input {
             width: 100%;
+        }
+
+        td {
+            height: 50px;
+            width: 300px;
+            border: 2px solid black;
         }
     </style>
 </head>
@@ -22,7 +34,7 @@
     <p><u>Hello</u></p>
     <p><s>Hello</s></p>
     <p>
-        H<sub>2</sub>O<br/>
+        H<sub>2</sub>O<br />
         X<sup>2</sup>
     </p>
 
@@ -46,15 +58,44 @@
         <p id="pname"></p>
         <p id="pcontact"></p>
     </div>
+    <div>
+        <table border="1">
+            <tr>
+                <td colspan="3"></td>
+
+            </tr>
+            <tr>
+                <td rowspan="2"></td>
+                <td></td>
+                <td rowspan="2"></td>
+            </tr>
+            <tr>
+
+                <td></td>
+
+            </tr>
+            <tr>
+                <td rowspan="2"></td>
+                <td></td>
+                <td rowspan="2"></td>
+            </tr>
+            <tr>
+
+                <td></td>
+
+            </tr>
+
+        </table>
+    </div>
 
     <script>
-        document.getElementById("contactForm").addEventListener("submit", function(e) {
+        document.getElementById("contactForm").addEventListener("submit", function (e) {
             e.preventDefault();
             let nameValue = document.getElementById("name").value;
             document.getElementById("pname").textContent = "Name : " + nameValue;
             console.log("Submitted Name:", nameValue);
             let contactValue = document.getElementById("contact").value;
-            document.getElementById("pcontact").textContent = "Contact : " + nameValue;
+            document.getElementById("pcontact").textContent = "Contact : " + contactValue;
             console.log("Submitted Contact:", contactValue);
         });
     </script>
