@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form</title>
+
+    <style> 
+        .input-field {
+            width: 100%;
+        }
+        .input-field > input {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <p><b>Hello</b></p>
+    <p><i>Hello</i></p>
+    <p><u>Hello</u></p>
+    <p><s>Hello</s></p>
+    <p>
+        H<sub>2</sub>O<br/>
+        X<sup>2</sup>
+    </p>
+
+
+    <form id="contactForm">
+        <h1>Contact Information Form</h1>
+        <div class="input-field">
+            <label>Name</label>
+            <input id="name" type="text" placeholder="Enter your name">
+        </div>
+
+        <div class="input-field">
+            <label>Contact Number</label>
+            <input id="contact" type="text" placeholder="Enter your contact number">
+        </div>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <div>
+        <p id="pname"></p>
+        <p id="pcontact"></p>
+    </div>
+
+    <script>
+        document.getElementById("contactForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+            let nameValue = document.getElementById("name").value;
+            document.getElementById("pname").textContent = "Name : " + nameValue;
+            console.log("Submitted Name:", nameValue);
+            let contactValue = document.getElementById("contact").value;
+            document.getElementById("pcontact").textContent = "Contact : " + nameValue;
+            console.log("Submitted Contact:", contactValue);
+        });
+    </script>
+</body>
+
+</html>
