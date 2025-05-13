@@ -8,19 +8,16 @@ def generate_key():
     random.shuffle(shuffled)
     return dict(zip(alphabet, shuffled))
 
-# 2. Encrypt message (preserving case)
 def encrypt(text, key):
     result = ''
     for char in text:
         if char.upper() in key:
             enc = key[char.upper()]
-            print(char.upper())
             result += enc if char.isupper() else enc.lower()
         else:
             result += char  
     return result
 
-# 3. Decrypt message (preserving case)
 def decrypt(ciphertext, key):
     reversed_key = {v: k for k, v in key.items()}
     result = ''
@@ -32,7 +29,6 @@ def decrypt(ciphertext, key):
             result += char
     return result
 
-# 4. Frequency analysis
 def frequency_analysis(text):
     letters_only = [c.upper() for c in text if c.upper() in string.ascii_uppercase]
     total = len(letters_only)
