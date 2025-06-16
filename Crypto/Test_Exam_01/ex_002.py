@@ -78,7 +78,9 @@ def playfair_decrypt(ciphertext, key):
 
 # Example
 key = "alpha"
-plaintext = "HELLO WORLD"
+# plaintext = "HELLO WORLD"
+plaintext = open('input.txt').read().strip() or input("Enter text to encrypt: ")
+
 ciphertext = playfair_encrypt(plaintext, key)
 original = playfair_decrypt(ciphertext, key)
 

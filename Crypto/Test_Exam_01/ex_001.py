@@ -11,11 +11,13 @@ def caesar_encrypt(plaintext, shift):
 def caesar_decrypt(ciphertext, shift):
     return caesar_encrypt(ciphertext, -shift)
 
-# Example
-text = input("Enter text to encrypt: ")
+
+# text = input("Enter text to encrypt: ")
+text = open('input.txt').read().strip() or input("Enter text to encrypt: ")
+
 shift = int(input("Enter shift value (1-25): "))
 encrypted = caesar_encrypt(text, shift)
 decrypted = caesar_decrypt(encrypted, shift)
 
-print("Encrypted:", encrypted)
-print("Decrypted:", decrypted)
+print("Encrypted:\n" + encrypted)
+print("Decrypted:\n" + decrypted)
