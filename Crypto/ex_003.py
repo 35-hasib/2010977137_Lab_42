@@ -6,7 +6,7 @@ e = 17
 d = pow(e, -1, phi)  # Modular inverse
 print(d)
 # Get input
-msg = 'H:/2010977137_Lab_42/Crypto/test.txt'
+msg = 'Crypto/test.txt'
 with open(msg, 'r') as f:
     msg = f.read()
 
