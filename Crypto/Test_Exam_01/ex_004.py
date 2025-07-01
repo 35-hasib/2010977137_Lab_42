@@ -1,15 +1,5 @@
 import random
 
-def power(base, exp, mod):
-    result = 1
-    base = base % mod
-    while exp > 0:
-        if exp % 2 == 1:
-            result = (result * base) % mod
-        exp /= 2 
-        base = (base * base) % mod
-    return result
-
 # Prime number and primitive root
 p = 23  # public
 g = 5   # public
