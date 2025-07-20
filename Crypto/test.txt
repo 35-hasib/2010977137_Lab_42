@@ -1,2 +1,21 @@
 hello world 
 
+pip install pycryptodome
+
+# Update package lists
+sudo apt update
+
+# Install Python3 and pip if not already installed
+sudo apt install python3 python3-pip
+
+# Install pycryptodome using pip
+pip3 install pycryptodome
+
+# Create a virtual environment
+python3 -m venv ~/myenv
+
+# Activate it
+source ~/myenv/bin/activate
+
+# Now install pycryptodome safely
+pip install pycryptodome
