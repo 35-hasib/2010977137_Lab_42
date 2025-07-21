@@ -76,7 +76,7 @@ print(f"Bob's shared secret: {bob_shared}")
 print(f"Secrets match: {alice_shared == bob_shared}")
 
 
-# ECC encryption and decryption functions
+# ECC encryption and decryption functions------------------------------------------------------
 
 def super_simple_encrypt(public_key, message, secret, p):
     """Encrypt a message using ECC shared secret (XOR-based)"""
