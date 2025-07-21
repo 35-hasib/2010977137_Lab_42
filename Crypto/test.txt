@@ -19,3 +19,7 @@ source ~/myenv/bin/activate
 
 # Now install pycryptodome safely
 pip install pycryptodome
+
+
+key = "HILLHASIB"  # Example 3x3 key
+key_matrix = get_key_matrix(key, 3)

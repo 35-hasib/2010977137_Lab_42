@@ -29,6 +29,7 @@ def mod_inverse_matrix(matrix, modulus):
 def hill_encrypt(plaintext, key_matrix):
     """Encrypt plaintext using Hill cipher"""
     block_size = key_matrix.shape[0]
+    print(f"Block size: {block_size}")
     plaintext = prepare_text(plaintext, block_size)
     numbers = text_to_numbers(plaintext)
     
@@ -57,11 +58,11 @@ def hill_decrypt(ciphertext, key_matrix):
 # Example usage with 3x3 matrix
 if __name__ == "__main__":
     # Key must be 9 letters for 3x3 matrix
-    key = "HILL"  # Example 3x3 key
+    key = "HILLHASIB"  # Example 3x3 key
     plaintext = "ATTACK ON TITAN"
     
     # Convert key to matrix
-    key_matrix = get_key_matrix(key, 2)
+    key_matrix = get_key_matrix(key, 3)
     
     # Encryption
     ciphertext = hill_encrypt(plaintext, key_matrix)
