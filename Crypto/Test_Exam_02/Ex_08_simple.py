@@ -52,11 +52,11 @@ tiny_curve = TinyECC()
 G = Point(5, 1)
 
 # Alice's key pair (small numbers for demonstration)
-alice_private = 3
+alice_private = 3333
 alice_public = tiny_curve.multiply(G, alice_private)
 
 # Bob's key pair
-bob_private = 7
+bob_private = 7777
 bob_public = tiny_curve.multiply(G, bob_private)
 
 # Shared secret computation

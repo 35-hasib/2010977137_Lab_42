@@ -1,6 +1,6 @@
 import base64
 
-# Simplified ECB mode AES implementation (educational purposes only)
+# Simplified ECB mode ---------------------------------------------------------------
 def simple_ecb_encrypt(plaintext, key):
     # Pad the plaintext to be multiple of 16 bytes
     padding_length = 16 - (len(plaintext) % 16)
@@ -46,7 +46,7 @@ print(f"Encrypted: {encrypted}")
 print(f"Decrypted: {decrypted}")
 
 
-# CFB mode (simplified version)
+# CFC mode (simplified version)-----------------------------------------------------------------
 import os
 import base64
 
@@ -102,7 +102,7 @@ decrypted = simple_cbc_decrypt(encrypted, key)
 print(f"Simplified CBC Mode:\nOriginal: {plaintext}\nEncrypted: {encrypted}\nDecrypted: {decrypted}\n")
 
 
-# CFB mode (simplified version)
+# CFB mode (simplified version)---------------------------------------------------------------
 
 def simple_cfb_encrypt(plaintext, key):
     iv = os.urandom(16)
@@ -145,7 +145,7 @@ decrypted = simple_cfb_decrypt(encrypted, key)
 print(f"Simplified CFB Mode:\nOriginal: {plaintext}\nEncrypted: {encrypted}\nDecrypted: {decrypted}\n")
 
 
-# OFB mode (simplified version)
+# OFB mode (simplified version)-----------------------------------------------------------------
 
 def simple_ofb_encrypt(plaintext, key):
     iv = os.urandom(16)
