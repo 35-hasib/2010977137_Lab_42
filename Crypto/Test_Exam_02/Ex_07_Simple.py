@@ -11,6 +11,7 @@ def simple_ecb_encrypt(plaintext, key):
     
     # Simple XOR "encryption" (in real AES this would be much more complex)
     ciphertext = b''
+    print(type(ciphertext))
     for block in blocks:
         encrypted_block = bytes([block[i] ^ key[i % len(key)] for i in range(16)])
         ciphertext += encrypted_block
@@ -35,7 +36,7 @@ def simple_ecb_decrypt(ciphertext, key):
     return decrypted[:-padding_length].decode()
 
 # Example usage
-key = b'Sixteen byte key'  # Must be 16 bytes for this simple version
+key = b'test'  # Must be 16 bytes for this simple version
 plaintext = "Hello World ECB"
 encrypted = simple_ecb_encrypt(plaintext, key)
 decrypted = simple_ecb_decrypt(encrypted, key)

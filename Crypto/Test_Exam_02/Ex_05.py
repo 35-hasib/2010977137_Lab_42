@@ -29,7 +29,6 @@ def mod_inverse_matrix(matrix, modulus):
 def hill_encrypt(plaintext, key_matrix):
     """Encrypt plaintext using Hill cipher"""
     block_size = key_matrix.shape[0]
-    print(f"Block size: {block_size}")
     plaintext = prepare_text(plaintext, block_size)
     numbers = text_to_numbers(plaintext)
     

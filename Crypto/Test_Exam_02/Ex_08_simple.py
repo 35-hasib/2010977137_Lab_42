@@ -30,7 +30,7 @@ class TinyECC:
         
         x_r = (m**2 - P.x - Q.x) % self.p
         y_r = (m * (P.x - x_r) - P.y) % self.p
-        
+          
         return Point(x_r, y_r)
     
     def multiply(self, P, n):
@@ -52,11 +52,11 @@ tiny_curve = TinyECC()
 G = Point(5, 1)
 
 # Alice's key pair (small numbers for demonstration)
-alice_private = 3333
+alice_private = 3
 alice_public = tiny_curve.multiply(G, alice_private)
 
 # Bob's key pair
-bob_private = 7777
+bob_private = 7
 bob_public = tiny_curve.multiply(G, bob_private)
 
 # Shared secret computation
