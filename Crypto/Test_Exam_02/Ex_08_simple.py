@@ -74,3 +74,56 @@ print("\nKey Exchange Results:")
 print(f"Alice's shared secret: {alice_shared}")
 print(f"Bob's shared secret: {bob_shared}")
 print(f"Secrets match: {alice_shared == bob_shared}")
+
+
+# ECC encryption and decryption functions
+
+def super_simple_encrypt(public_key, message, secret, p):
+    """Encrypt a message using ECC shared secret (XOR-based)"""
+    # Calculate shared secret point
+    shared_point = public_key
+    for _ in range(secret-1):
+        shared_point = (
+            (shared_point[0] + public_key[0]) % p,
+            (shared_point[1] + public_key[1]) % p
+        )
+    
+    # Use x-coordinate as key (mod 256 for byte range)
+    key = shared_point[0] % 256
+    
+    # XOR each character with the key
+    encrypted = ''.join([chr(ord(c) ^ key) for c in message])
+    return encrypted
+
+def super_simple_decrypt(encrypted, public_key, secret, p):
+    """Decrypt a message using ECC shared secret (XOR-based)"""
+    # Calculate same shared secret point
+    shared_point = public_key
+    for _ in range(secret-1):
+        shared_point = (
+            (shared_point[0] + public_key[0]) % p,
+            (shared_point[1] + public_key[1]) % p
+        )
+    
+    key = shared_point[0] % 256
+    
+    # XOR each character with the key
+    decrypted = ''.join([chr(ord(c) ^ key) for c in encrypted])
+    return decrypted
+
+# Tiny ECC parameters
+p = 17  # Prime modulus
+G = (5, 1)  # Base point
+
+# Example usage
+message = "Hello Hasib"
+secret = 4
+public_key = (6, 3)  # Pretend this was calculated as 4*G
+
+# Encrypt and decrypt
+encrypted = super_simple_encrypt(public_key, message, secret, p)
+decrypted = super_simple_decrypt(encrypted, public_key, secret, p)
+
+print("Original:", message)
+print("Encrypted:", encrypted)
+print("Decrypted:", decrypted)
