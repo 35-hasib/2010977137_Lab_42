@@ -20,7 +20,6 @@ def add(A,B):
     return [g_x, g_y]
 
 def multiply(GG, n):
-    
     result = [0,0]
     current = GG
     while n > 0:

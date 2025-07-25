@@ -21,6 +21,8 @@ def point_add(G,A):
     if x1 == x2 and y1 != y2:
         return None
     if x1 == x2:
+        if y1 == 0:
+            return None
         m = (3 * x1 * x1 + A) * pow(2 * y1, P-2, P)
     else:
         m = (y2 - y1) * pow(x2 - x1, P-2, P)
