@@ -2,18 +2,18 @@ import base64
 
 # Simplified ECB mode ---------------------------------------------------------------
 def simple_ecb_encrypt(plaintext, key):
-    # Pad the plaintext to be multiple of 16 bytes
-    padding_length = 16 - (len(plaintext) % 16)
+    # Pad the plaintext to be multiple of 128 bytes
+    padding_length = 128 - (len(plaintext) % 128)
     padded_text = plaintext.encode() + bytes([padding_length] * padding_length)
     
-    # Split into 16-byte blocks
-    blocks = [padded_text[i:i+16] for i in range(0, len(padded_text), 16)]
+    # Split into 128-byte blocks
+    blocks = [padded_text[i:i+128] for i in range(0, len(padded_text), 128)]
     
     # Simple XOR "encryption" (in real AES this would be much more complex)
     ciphertext = b''
-    print(type(ciphertext))
+    
     for block in blocks:
-        encrypted_block = bytes([block[i] ^ key[i % len(key)] for i in range(16)])
+        encrypted_block = bytes([block[i] ^ key[i % len(key)] for i in range(128)])
         ciphertext += encrypted_block
     
     return base64.b64encode(ciphertext).decode()
@@ -22,13 +22,13 @@ def simple_ecb_decrypt(ciphertext, key):
     # Decode from base64
     ciphertext = base64.b64decode(ciphertext)
     
-    # Split into 16-byte blocks
-    blocks = [ciphertext[i:i+16] for i in range(0, len(ciphertext), 16)]
+    # Split into 128-byte blocks
+    blocks = [ciphertext[i:i+128] for i in range(0, len(ciphertext), 128)]
     
     # Simple XOR "decryption"
     decrypted = b''
     for block in blocks:
-        decrypted_block = bytes([block[i] ^ key[i % len(key)] for i in range(16)])
+        decrypted_block = bytes([block[i] ^ key[i % len(key)] for i in range(128)])
         decrypted += decrypted_block
     
     # Remove padding
@@ -36,7 +36,7 @@ def simple_ecb_decrypt(ciphertext, key):
     return decrypted[:-padding_length].decode()
 
 # Example usage
-key = b'test'  # Must be 16 bytes for this simple version
+key = b'test fhugfjghfjhgk'  # Must be 128 bytes for this simple version
 plaintext = "Hello World ECB"
 encrypted = simple_ecb_encrypt(plaintext, key)
 decrypted = simple_ecb_decrypt(encrypted, key)
@@ -52,24 +52,24 @@ import os
 import base64
 
 def simple_cbc_encrypt(plaintext, key):
-    # Generate random IV (16 bytes)
-    iv = os.urandom(16)
+    # Generate random IV (128 bytes)
+    iv = os.urandom(128)
     
-    # Pad plaintext to multiple of 16 bytes
-    padding_length = 16 - (len(plaintext) % 16)
+    # Pad plaintext to multiple of 128 bytes
+    padding_length = 128 - (len(plaintext) % 128)
     padded_text = plaintext.encode() + bytes([padding_length] * padding_length)
     
     # Split into blocks
-    blocks = [padded_text[i:i+16] for i in range(0, len(padded_text), 16)]
+    blocks = [padded_text[i:i+128] for i in range(0, len(padded_text), 128)]
     
     # Encrypt each block
     ciphertext = b''
     previous_block = iv
     for block in blocks:
         # XOR with previous ciphertext block (or IV for first block)
-        xored = bytes([block[i] ^ previous_block[i] for i in range(16)])
+        xored = bytes([block[i] ^ previous_block[i] for i in range(128)])
         # "Encrypt" with simple XOR (in real AES this would be complex)
-        encrypted_block = bytes([xored[i] ^ key[i % len(key)] for i in range(16)])
+        encrypted_block = bytes([xored[i] ^ key[i % len(key)] for i in range(128)])
         ciphertext += encrypted_block
         previous_block = encrypted_block
     
@@ -77,16 +77,16 @@ def simple_cbc_encrypt(plaintext, key):
 
 def simple_cbc_decrypt(ciphertext, key):
     data = base64.b64decode(ciphertext)
-    iv = data[:16]
-    ciphertext_blocks = [data[i:i+16] for i in range(16, len(data), 16)]
+    iv = data[:128]
+    ciphertext_blocks = [data[i:i+128] for i in range(128, len(data), 128)]
     
     decrypted = b''
     previous_block = iv
     for block in ciphertext_blocks:
         # "Decrypt" with simple XOR
-        decrypted_block = bytes([block[i] ^ key[i % len(key)] for i in range(16)])
+        decrypted_block = bytes([block[i] ^ key[i % len(key)] for i in range(128)])
         # XOR with previous ciphertext block
-        plain_block = bytes([decrypted_block[i] ^ previous_block[i] for i in range(16)])
+        plain_block = bytes([decrypted_block[i] ^ previous_block[i] for i in range(128)])
         decrypted += plain_block
         previous_block = block
     
@@ -106,13 +106,13 @@ print(f"Simplified CBC Mode:\nOriginal: {plaintext}\nEncrypted: {encrypted}\nDec
 # CFB mode (simplified version)---------------------------------------------------------------
 
 def simple_cfb_encrypt(plaintext, key):
-    iv = os.urandom(16)
-    cipher = bytes([iv[i] ^ key[i % len(key)] for i in range(16)])  # "Encrypt" IV
+    iv = os.urandom(128)
+    cipher = bytes([iv[i] ^ key[i % len(key)] for i in range(128)])  # "Encrypt" IV
     
     ciphertext = b''
     previous_block = cipher
-    for i in range(0, len(plaintext), 16):
-        block = plaintext.encode()[i:i+16]
+    for i in range(0, len(plaintext), 128):
+        block = plaintext.encode()[i:i+128]
         # XOR plaintext with encrypted previous block
         encrypted_block = bytes([block[j] ^ previous_block[j] for j in range(len(block))])
         ciphertext += encrypted_block
@@ -123,13 +123,13 @@ def simple_cfb_encrypt(plaintext, key):
 
 def simple_cfb_decrypt(ciphertext, key):
     data = base64.b64decode(ciphertext)
-    iv = data[:16]
-    ciphertext_blocks = data[16:]
+    iv = data[:128]
+    ciphertext_blocks = data[128:]
     
     decrypted = b''
-    previous_block = bytes([iv[i] ^ key[i % len(key)] for i in range(16)])
-    for i in range(0, len(ciphertext_blocks), 16):
-        block = ciphertext_blocks[i:i+16]
+    previous_block = bytes([iv[i] ^ key[i % len(key)] for i in range(128)])
+    for i in range(0, len(ciphertext_blocks), 128):
+        block = ciphertext_blocks[i:i+128]
         # XOR ciphertext with encrypted previous block
         decrypted_block = bytes([block[j] ^ previous_block[j] for j in range(len(block))])
         decrypted += decrypted_block
@@ -149,13 +149,13 @@ print(f"Simplified CFB Mode:\nOriginal: {plaintext}\nEncrypted: {encrypted}\nDec
 # OFB mode (simplified version)-----------------------------------------------------------------
 
 def simple_ofb_encrypt(plaintext, key):
-    iv = os.urandom(16)
+    iv = os.urandom(128)
     
     ciphertext = b''
-    feedback = bytes([iv[i] ^ key[i % len(key)] for i in range(16)])  # Initial encryption
+    feedback = bytes([iv[i] ^ key[i % len(key)] for i in range(128)])  # Initial encryption
     
-    for i in range(0, len(plaintext), 16):
-        block = plaintext.encode()[i:i+16]
+    for i in range(0, len(plaintext), 128):
+        block = plaintext.encode()[i:i+128]
         # XOR plaintext with feedback
         encrypted_block = bytes([block[j] ^ feedback[j] for j in range(len(block))])
         ciphertext += encrypted_block
@@ -166,14 +166,14 @@ def simple_ofb_encrypt(plaintext, key):
 
 def simple_ofb_decrypt(ciphertext, key):
     data = base64.b64decode(ciphertext)
-    iv = data[:16]
-    ciphertext_blocks = data[16:]
+    iv = data[:128]
+    ciphertext_blocks = data[128:]
     
     decrypted = b''
-    feedback = bytes([iv[i] ^ key[i % len(key)] for i in range(16)])
+    feedback = bytes([iv[i] ^ key[i % len(key)] for i in range(128)])
     
-    for i in range(0, len(ciphertext_blocks), 16):
-        block = ciphertext_blocks[i:i+16]
+    for i in range(0, len(ciphertext_blocks), 128):
+        block = ciphertext_blocks[i:i+128]
         # XOR ciphertext with feedback
         decrypted_block = bytes([block[j] ^ feedback[j] for j in range(len(block))])
         decrypted += decrypted_block

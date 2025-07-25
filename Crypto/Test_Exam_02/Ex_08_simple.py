@@ -11,10 +11,10 @@ class Point:
 
 class TinyECC:
     def __init__(self):
-        # Using a tiny curve: y² = x³ + 2x + 2 mod 17
-        self.a = 2
+        # Using a tiny curve: y² = x³ + x + 2 mod 13
+        self.a = 1
         self.b = 2
-        self.p = 17
+        self.p = 13
     
     def add(self, P, Q):
         if P.x == 0 and P.y == 0: return Q
@@ -26,6 +26,8 @@ class TinyECC:
             m = (Q.y - P.y) * pow(Q.x - P.x, -1, self.p) % self.p
         else:
             # Slope for point doubling
+            if P.y == 0:
+                return Point(0, 0)
             m = (3 * P.x**2 + self.a) * pow(2 * P.y, -1, self.p) % self.p
         
         x_r = (m**2 - P.x - Q.x) % self.p
@@ -49,14 +51,14 @@ class TinyECC:
 tiny_curve = TinyECC()
 
 # Base point (one of the points on our tiny curve)
-G = Point(5, 1)
+G = Point(7, 1)
 
 # Alice's key pair (small numbers for demonstration)
 alice_private = 3
 alice_public = tiny_curve.multiply(G, alice_private)
 
 # Bob's key pair
-bob_private = 7
+bob_private = 11
 bob_public = tiny_curve.multiply(G, bob_private)
 
 # Shared secret computation
@@ -116,7 +118,7 @@ p = 17  # Prime modulus
 G = (5, 1)  # Base point
 
 # Example usage
-message = "Hello Hasib"
+message = "Hello World"
 secret = 4
 public_key = (6, 3)  # Pretend this was calculated as 4*G
 
