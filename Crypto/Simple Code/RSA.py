@@ -21,5 +21,9 @@ cipher = [pow(ord(c), e, n) for c in msg] # c^e mod n
 print("Encrypted:", cipher)
 
 # Decrypt
-decrypted = ''.join([chr(pow(c, d, n)) for c in cipher]) # c^d mod n
+decrypted = ''
+for c in cipher:
+    decrypted += chr(pow(c,d,n))
 print("Decrypted:", decrypted)
+
+
