@@ -10,6 +10,9 @@ g = 5   # public
 a = random.randint(1, p-2)
 b = random.randint(1, p-2)
 
+print(f'a = {a}')
+print(f'b = {b}')
+
 # Public keys
 A = pow(g, a, p)
 B = pow(g, b, p)
