@@ -16,7 +16,6 @@ print(f"M: {m}")
 
 M = str(m)
 if(len(M) % 2 != 0): M = '0' + M
-
 result = ''
 for i in range(0,len(M),2):
     result += chr(ord('A')-1+(int(M[i]+M[i+1]) % 26))
