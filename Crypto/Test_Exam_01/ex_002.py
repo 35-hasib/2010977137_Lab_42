@@ -22,7 +22,8 @@ def find_position(matrix, char):
 
 def playfair_encrypt(text, key):
     matrix = generate_matrix(key)
-    print(matrix)
+    for i in range(len(matrix)):
+        print(matrix[i])
     text = text.upper().replace("J", "I").replace(" ", "")
     
     pairs = []
@@ -79,7 +80,7 @@ def playfair_decrypt(ciphertext, key):
 # Example
 key = "alpha"
 # plaintext = "HELLO WORLD"
-plaintext = open('input.txt').read().strip() or input("Enter text to encrypt: ")
+plaintext = input("Enter text to encrypt: ")
 
 ciphertext = playfair_encrypt(plaintext, key)
 original = playfair_decrypt(ciphertext, key)
