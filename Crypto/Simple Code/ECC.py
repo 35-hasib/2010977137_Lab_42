@@ -33,7 +33,7 @@ G = [7,1]
 
 
 alice_private = 3
-bob_private = 11
+bob_private = 7
 
 alice_public = multiply(G, alice_private)
 bob_public = multiply(G, bob_private)
